@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+ Copyright 2020 XEBIALABS
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.xebialabs.com/deployit/synthetic" xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+  <!-- Http Connections -->
+  <type type="controlm.Server" extends="configuration.HttpConnection" label="Control-M: Server">
+    <property name="authenticationMethod" hidden="true" kind="enum" enum-class="com.xebialabs.xlrelease.domain.configuration.HttpConnection$AuthenticationMethod" default="Basic">
+      <enum-values>
+        <value>Basic</value>
+      </enum-values>
+    </property>
+    <property name="domain" hidden="true" default="NOTUSED"/>
+    <property name="skipTlsVerification" label="Skip TLS Verification" kind="boolean" default="false"
+              description="Optionally, skip TLS certificate verification.  Alternatives, such as self-signed certificates loaded into the truststore or trusted TLS certificates are recommended over turning this value &quot;on&quot;."/>
+  </type>
+  <!-- Python Scripts -->
+  <type type="controlm.Task" extends="xlrelease.PythonScript" virtual="true">
+    <property name="iconLocation" hidden="true" default="controlm/bmc.png"/>
+    <property name="taskColor" hidden="true" default="#FFB999"/>
+    <property name="server" category="input" kind="ci" referenced-type="controlm.Server" required="true"/>
+    <property name="username" category="input" required="false" description="Optionally, override the username used to connect to the server"/>
+    <property name="password" category="input" required="false" password="true" description="Optionally, override the password used to connect to the server"/>
+  </type>
+  <!-- Tasks -->
+  <type type="controlm.CheckLatestJob" extends="controlm.Task" label="Control-M: Check Latest Job">
+    <property name="jobname" required="false" category="input" label="Job Name" description="Optionally, provide a job name filter"/>
+    <property name="folder" required="false" category="input" description="Optionally, provide a folder filter"/>
+    <property name="ctm" required="false" category="input" description="Optionally, provide a ctm filter"/>
+    <property name="application" required="false" category="input" description="Optionally, provide an application filter"/>
+    <property name="subApplication" required="false" category="input" label="SubApplication" description="Optionally, provide a subapplication filter"/>
+    <property name="host" required="false" category="input" description="Optionally, provide a host filter"/>
+    <property name="description" required="false" category="input" description="Optionally, provide a description filter"/>
+    <property name="jobid" required="false" category="input" label="Job ID" description="Optionally, provide a job id filter"/>
+    <property name="pollFrequency" required="true" category="input" kind="integer" default="10" description="Specify the frequency at which to poll for Control-M job information"/>
+    <property name="jobidOutput" category="output" label="Job ID"/>
+    <property name="status" category="output"/>
+    <property name="outputURI" category="output" label="Output URI"/>
+    <property name="logURI" category="output" label="Log URI"/>
+  </type>
+</synthetic>
