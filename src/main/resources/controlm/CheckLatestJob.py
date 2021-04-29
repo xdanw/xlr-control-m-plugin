@@ -76,6 +76,9 @@ if status == "Ended OK":
         "Output: [{0}]({0})\n".format(latest_job["outputURI"]) + \
         "Log: [{0}]({0})\n".format(latest_job["logURI"])
     )
+    if str(task.getStatusLine()) != format(status) : 
+        # Status has changed
+        print("Status changed to: {0}".format(status))
     task.setStatusLine("{0}".format(status))
 elif status == "Ended Not OK" or status == "Status Unknown":
     print(
@@ -86,6 +89,9 @@ elif status == "Ended Not OK" or status == "Status Unknown":
     )
     raise Exception("Job Has Status Failed or Unknown: {0} ({1})".format(latest_job["name"], latest_job["jobId"]))
 else:
+    if str(task.getStatusLine()) != format(status) : 
+        # Status has changed
+        print("Status changed to: {0}".format(status))
     task.setStatusLine("{0}".format(status))
     task.schedule("controlm/CheckLatestJob.py", pollFrequency)
 
