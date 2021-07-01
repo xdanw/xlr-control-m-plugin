@@ -29,6 +29,7 @@
     <property name="password" category="input" required="false" password="true" description="Optionally, override the password used to connect to the server"/>
   </type>
   <!-- Tasks -->
+  
   <type type="controlm.CheckLatestJob" extends="controlm.Task" label="Control-M: Check Latest Job">
     <property name="jobname" required="false" category="input" label="Job Name" description="Optionally, provide a job name filter"/>
     <property name="folder" required="false" category="input" description="Optionally, provide a folder filter"/>
@@ -44,4 +45,10 @@
     <property name="outputURI" category="output" label="Output URI"/>
     <property name="logURI" category="output" label="Log URI"/>
   </type>
+  
+  <type type="controlm.Deploy" extends="controlm.Task" label="Control-M: Deploy using a definitions file">
+    <property name="definitionsFile" required="true" category="input" kind="string" size="large" label="Definitions File" description="A file that contains definitions to be deployed to the server. This can be JSON or XML (currently, only JSON is supported)."/>
+    <property name="descriptorFile" required="false" category="input" kind="string" size="large" label="Deploy Descriptor JSON file." description="(Optional) The file that includes the rules to apply on the original definitionsFile."/>
+  </type>
+  
 </synthetic>
